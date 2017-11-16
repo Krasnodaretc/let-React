@@ -16,7 +16,7 @@ ol, ul {
 .status {
     margin-bottom: 30px;
     font-size: 20px;
-    text-align: center;
+    width: 100%;
 }
 .game{
     display: flex;
@@ -55,4 +55,28 @@ ol, ul {
 
 .game-info {
     margin-left: 20px;
+}
+
+.game-wrap{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 270px;
+    justify-content: center;
+}
+.reload{
+    margin-top: 20px;
+    font-size: 22px;
+    padding: 8px 12px;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+    border: 1px solid #fff;
+    text-transform: uppercase;
+    transition: box-shadow 0.4s ease-in-out, background-color 0.4s ease-in, border-color 0.4s ease-in-out;
+}
+.reload:hover, .reload.active{
+    background-color: #ea00ff;
+    box-shadow: 0px 0px 20px -3px #000;
+    border-color: #ea00ff;
+    cursor: pointer;
 }

@@ -14,12 +14,22 @@ function Square(props) {
   );
 }
 
-function Reload(props) {
-  return (
-    <button className="reload" onClick={props.onClick}>
-      Заново
-    </button>
-  )
+class Reload extends React.Component {
+  constructor(props){
+    super(props);
+    console.log(props);
+    this.state = {
+      active: props.active
+    }
+  }
+
+  render() {
+    return (
+      <button className={(this.state.active ? 'active' : '') + ' reload'} onClick={this.props.onClick}>
+        Заново
+      </button>
+    )
+  }
 }
 
 class Board extends React.Component {
@@ -28,26 +38,28 @@ class Board extends React.Component {
     this.state = {
       squares: Array(9).fill(null),
       xIsNext: true,
-      winner: false,
+      overed: null
     }
   }
 
   handleClick(i) {
-    if (this.state.winner) return;
+    if (this.state.overed) return;
     const squares = this.state.squares.slice();
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       squares: squares,
       xIsNext: !this.state.xIsNext,
-      winner: calculateWinner(squares)
+      overed: calculateWinner(squares)
     });
+
+    
   }
 
   reload() {
     this.setState({
       squares: new Array(9).fill(null),
-      xIsNext: false,
-      winner: false
+      xIsNext: true,
+      overed: null
     });
   }
 
@@ -62,19 +74,18 @@ class Board extends React.Component {
   renderReload() {
     return (
       <Reload
-      onClick={() => this.reload()}/>
+      onClick={() => this.reload()}
+      active={!!this.state.overed}/>
     )
   }
 
   render() {
-    let winner = this.state.winner;
-    let status =
-      winner ?
-      `Winner ${winner}` :
-      `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
+    let winner = this.state.overed;
+    let status = getStatusWinner(winner , this.state.xIsNext);
+
 
     return (
-      <div>
+      <div className="game-wrap">
         <div className="status">{status}</div>
         <div className="board-row">
           {this.renderSquare(0)}
@@ -135,9 +146,26 @@ function calculateWinner(squares) {
   for (let i = lines.length - 1; i >= 0; i--) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return 'win';
     }
   }
 
+  if ( !~squares.indexOf(null) ) return 'over';
   return null;
+}
+
+function getStatusWinner (winner , nextPlayer) {
+  let statusText;
+
+  switch (winner) {
+    case 'over':
+      statusText = `Dead end. Try again!`;
+      break;
+    case 'win':
+      statusText = `Congrats Player ${nextPlayer ? 'O' : 'X'}!`;
+      break;
+    default:
+      statusText = `Next player: ${nextPlayer ? 'X' : 'O'}`;
+  }
+  return statusText;
 }
