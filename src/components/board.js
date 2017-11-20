@@ -24,7 +24,7 @@ export default class Board extends React.Component {
   }
 
   handleClick(i) {
-    if (this.state.overed) return;
+    if (this.state.overed || this.state.squares[i]) return;
     const squares = this.state.squares.slice();
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
@@ -32,13 +32,11 @@ export default class Board extends React.Component {
       xIsNext: !this.state.xIsNext,
       overed: calculateWinner(squares)
     });
-
-
   }
 
   reloadClick() {
     this.setState({
-      squares: new Array(9).fill(null),
+      squares: Array(9).fill(null),
       xIsNext: true,
       overed: null
     });
@@ -55,8 +53,8 @@ export default class Board extends React.Component {
   renderReload() {
     return (
       <Reload
-        onClick={() => this.reloadClick()}
-        active={!!this.state.overed}/>
+        active={!!this.state.overed}
+        onClick={() => this.reloadClick()}/>
     )
   }
 

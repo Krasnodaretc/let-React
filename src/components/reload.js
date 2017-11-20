@@ -5,11 +5,18 @@
 import React from 'react';
 
 export default class Reload extends React.Component {
-  render() {
-    return (
-      <button className={`${this.props.active || 'disactive'} reload`} onClick={this.props.onClick}>
-        Заново
-      </button>
-    )
+  constructor(props){
+    super(props);
+    this.state = {
+      active: props.active
+    };
+  }
+
+  render () {
+      return (
+          <button className={`${this.props.active ? 'active' : ''} reload`} onClick={this.props.onClick}>
+            Заново
+          </button>
+      )
   }
 }
