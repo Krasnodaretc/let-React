@@ -12,7 +12,12 @@ export default class Reload extends React.Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState){
+    return nextProps.active !== this.props.active
+  }
+
   render () {
+    console.log('reload');
       return (
           <button className={`${this.props.active ? 'active' : ''} reload`} onClick={this.props.onClick}>
             Заново

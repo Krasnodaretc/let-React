@@ -5,12 +5,20 @@ import React from 'react';
 import Reload from './reload';
 import {getStatusWinner , calculateWinner} from '../functions/game';
 
-function Square(props) {
-  return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
-  );
+class Square extends React.Component{
+
+  shouldComponentUpdate(nextProps, nextState){
+    return nextProps.value !== this.props.value
+  }
+
+  render() {
+    console.log('lol');
+    return (
+      <button className="square" onClick={this.props.onClick}>
+        {this.props.value}
+      </button>
+    );
+  }
 }
 
 export default class Board extends React.Component {
