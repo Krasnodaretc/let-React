@@ -4,8 +4,12 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from "redux";
 import './index.css';
 import Board from './components/board';
+import boardApp from './reducers';
+
+let store = createStore(boardApp);
 
 class Game extends React.Component {
   render() {
