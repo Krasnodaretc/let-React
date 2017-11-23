@@ -5,6 +5,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from "redux";
+import { Provider } from "react-redux";
 import './index.css';
 import Board from './components/board';
 import boardApp from './reducers';
@@ -20,7 +21,7 @@ class Game extends React.Component {
             <div>Hello, World! It's me, Krasnodaretc</div>
             <ol>{/* TODO */}</ol>
           </div>
-          <Board />
+          <Board/>
         </div>
       </div>
     );
@@ -30,6 +31,8 @@ class Game extends React.Component {
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <Provider store={store}>
+    <Game />
+  </Provider>,
   document.getElementById('root')
 );

@@ -3,12 +3,12 @@
  */
 import { combineReducers } from 'redux';
 import squares from './squares';
-import reload from './reload';
+import overed from './overed';
 
 
 let boardApp = combineReducers({
   squares,
-  reload
+  overed
 });
 
 export default boardApp;
